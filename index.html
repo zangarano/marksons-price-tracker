@@ -62,10 +62,6 @@ body {
   letter-spacing: 2px; text-transform: uppercase; color: #fff;
   text-shadow: 0 0 24px rgba(0,212,255,0.55), 0 0 60px rgba(0,212,255,0.2);
 }
-.header .subtitle {
-  font-size: 10px; color: var(--text-mid); letter-spacing: 1.2px;
-  margin-top: 5px; text-transform: uppercase; font-family: var(--display);
-}
 .updated-badge {
   background: rgba(0,212,255,0.07); border: 1px solid rgba(0,212,255,0.22);
   border-radius: 20px; padding: 6px 16px; font-size: 11px;
@@ -162,7 +158,7 @@ tbody tr:last-child { border-bottom: none; }
 tbody tr:hover { background: rgba(255,255,255,0.025); }
 td { padding: 11px 14px; vertical-align: middle; }
 .item-name { font-weight: 500; font-size: 13px; color: var(--text); }
-.item-cat  { font-family: var(--display); font-size: 8.5px; color: var(--text-dim); margin-top: 3px; letter-spacing: 1px; text-transform: uppercase; }
+.item-cat  { font-family: var(--display); font-size: 8.5px; color: rgba(255,255,255,0.52); margin-top: 3px; letter-spacing: 1px; text-transform: uppercase; }
 .price { font-family: var(--mono); font-weight: 500; font-size: 13px; white-space: nowrap; }
 .price-null { color: var(--text-dim); font-style: italic; font-size: 11px; font-family: var(--ui); font-weight: 400; }
 .price-note { font-family: var(--display); font-size: 8.5px; color: var(--amber); font-weight: 600; display: block; margin-top: 2px; letter-spacing: 1px; }
@@ -204,7 +200,6 @@ td.higher .price { color: var(--text-mid); }
 <div class="header">
   <div>
     <h1>Markson's Furniture — Price Intelligence</h1>
-    <div class="subtitle">Ashley Furniture · Rochester, NY · Internal Competitive Analysis</div>
   </div>
   <div class="updated-badge">⬡ Last updated: <span id="last-updated">2026-06-24</span></div>
 </div>
@@ -212,17 +207,17 @@ td.higher .price { color: var(--text-mid); }
   <div class="stat-card red">
     <div class="label">Old Brick Cheaper</div>
     <div class="value" id="ob-count">—</div>
-    <div class="sub">items · <span id="ob-savings">$0</span> total exposure</div>
+    <div class="sub">items</div>
   </div>
   <div class="stat-card red">
     <div class="label">Dunk &amp; Bright Cheaper</div>
     <div class="value" id="db-count">—</div>
-    <div class="sub">items · <span id="db-savings">$0</span> total exposure</div>
+    <div class="sub">items</div>
   </div>
   <div class="stat-card red">
     <div class="label">Ashley.com Cheaper</div>
     <div class="value" id="ash-count">—</div>
-    <div class="sub">items · <span id="ash-savings">$0</span> total exposure</div>
+    <div class="sub">items</div>
   </div>
   <div class="stat-card blue">
     <div class="label">Total Items Tracked</div>
@@ -306,22 +301,19 @@ function cellClass(mp, cp) {
 }
 
 function computeStats() {
-  let obC=0,obS=0, dbC=0,dbS=0, ashC=0,ashS=0;
+  let obC=0, dbC=0, ashC=0;
   ALL_ITEMS.forEach(it => {
     const mp = it.markson_price;
     const ob = it.competitors.old_brick.price;
     const db = it.competitors.dunk_bright.price;
     const ash = it.competitors.ashley.price;
-    if (ob != null && ob < mp) { obC++; obS += mp - ob; }
-    if (db != null && db < mp) { dbC++; dbS += mp - db; }
-    if (ash != null && ash < mp) { ashC++; ashS += mp - ash; }
+    if (ob != null && ob < mp) { obC++; }
+    if (db != null && db < mp) { dbC++; }
+    if (ash != null && ash < mp) { ashC++; }
   });
   document.getElementById('ob-count').textContent  = obC;
-  document.getElementById('ob-savings').textContent = '$' + obS.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',');
   document.getElementById('db-count').textContent  = dbC;
-  document.getElementById('db-savings').textContent = '$' + dbS.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',');
   document.getElementById('ash-count').textContent = ashC;
-  document.getElementById('ash-savings').textContent = '$' + ashS.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g,',');
 }
 
 function applyFilters() {
@@ -423,7 +415,7 @@ function sortTable(key) {
   const headers = { description:0, category:1, markson_price:2, ob:3, db:4, ashley:5, max_savings:6 };
   const idx = headers[key];
   if (idx !== undefined) document.querySelectorAll('thead th')[idx]?.classList.add('sorted');
-  renderTable();
+  applyFilters();
 }
 
 computeStats();
