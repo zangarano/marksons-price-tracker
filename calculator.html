@@ -328,7 +328,7 @@ input[type="number"]:focus { border-color: #3d4fcc; }
 
 <header>
   <div class="header-title">Sales Calculator</div>
-  <div class="header-sub">Financing program comparison for salespeople</div>
+
 </header>
 
 <div class="main">
@@ -461,9 +461,9 @@ function recalc() {
   const total = subtotal + taxAmount;
 
   // Update summary
-  document.getElementById('outSubtotal').textContent = subtotal > 0 ? fmt(subtotal) : '-';
-  document.getElementById('outTax').textContent = subtotal > 0 ? fmt(taxAmount) : '-';
-  document.getElementById('outTotal').textContent = total > 0 ? fmt(total) : '-';
+  document.getElementById('outSubtotal').textContent = subtotal > 0 ? fmt(subtotal) : 'â';
+  document.getElementById('outTax').textContent = subtotal > 0 ? fmt(taxAmount) : 'â';
+  document.getElementById('outTotal').textContent = total > 0 ? fmt(total) : 'â';
 
   // Render programs
   const results = document.getElementById('results');
@@ -478,7 +478,7 @@ function recalc() {
     let card = document.getElementById('card-' + prog.id);
     if (!card) {
       card = document.createElement('div');
-      card.id = 'card-' + prog.id;
+!     card.id = 'card-' + prog.id;
       card.className = 'program-card';
       results.appendChild(card);
     }
