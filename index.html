@@ -145,9 +145,41 @@ tr:last-child td { border-bottom: none; }
 ::-webkit-scrollbar-track { background: #0a0a0f; }
 ::-webkit-scrollbar-thumb { background: #1e1e3a; border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: #2d2d50; }
+
+nav {
+  background: #0d0d1a;
+  border-bottom: 1px solid #1e1e3a;
+  display: flex;
+  gap: 0;
+  padding: 0 28px;
+}
+.nav-tab {
+  display: inline-block;
+  padding: 13px 22px;
+  font-family: 'Orbitron', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #4b5563;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+  margin-bottom: -1px;
+}
+.nav-tab:hover { color: #9ca3af; }
+.nav-tab.active {
+  color: #7b9fff;
+  border-bottom-color: #7b9fff;
+}
 </style>
 </head>
 <body>
+<nav>
+  <a class="nav-tab active" href="index.html">Price Intelligence</a>
+  <a class="nav-tab" href="calculator.html">Sales Calculator</a>
+</nav>
+
 <header>
   <div class="header-left">
     <div class="header-title">Markson's Price Intelligence</div>
