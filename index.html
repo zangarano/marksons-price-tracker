@@ -234,7 +234,7 @@ function marksonClass(item) {
 }
 
 function fmtPrice(val, cls) {
-  if (val == null) return '<span class="null-price">â</span>';
+  if (val == null) return '<span class="null-price">&mdash;</span>';
   return '<span class="' + (cls || 'price') + '">$' + Number(val).toFixed(2) + '</span>';
 }
 
@@ -276,7 +276,7 @@ function applyFilters() {
     const th = document.getElementById('th-' + col);
     if (!th) return;
     th.classList.toggle('sorted', col === sortCol);
-    th.querySelector('.sort-arrow').textContent = col === sortCol ? (sortDir === 1 ? 'â' : 'â') : 'â';
+    th.querySelector('.sort-arrow').textContent = col === sortCol ? (sortDir === 1 ? '↑' : '↓') : '⇕';
   });
 }
 
@@ -289,4 +289,4 @@ function sortBy(col) {
 applyFilters();
 </script>
 </body>
-        </html>
+</html>
