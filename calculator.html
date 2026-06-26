@@ -522,26 +522,17 @@ function renderCard(card, prog, total) {
           </div>
         </div>`;
     } else if (prog.type === 'lto') {
-      const totalCost = total * prog.factor;
-      const biweekly = totalCost / 26;
-      const costOver = totalCost - total;
-      const costPct = ((prog.factor - 1) * 100).toFixed(0);
       statsHtml = `
         <div class="program-grid">
           <div class="program-stat">
-            <div class="stat-label">Biweekly Payment</div>
-            <div class="stat-value green">${fmtBig(biweekly)}</div>
-            <div class="stat-sub">26 payments / year</div>
+            <div class="stat-label">90-Day Price</div>
+            <div class="stat-value green">${fmtBig(total)}</div>
+            <div class="stat-sub">pay in full within 90 days</div>
           </div>
           <div class="program-stat">
-            <div class="stat-label">Total Cost</div>
-            <div class="stat-value">${fmtBig(totalCost)}</div>
-            <div class="stat-sub">${prog.factor}× factor · ${prog.months} months</div>
-          </div>
-          <div class="program-stat">
-            <div class="stat-label">Cost of Lease</div>
-            <div class="stat-value amber">${fmtBig(costOver)}</div>
-            <div class="stat-sub">${costPct}% over cash price</div>
+            <div class="stat-label">Cash Price</div>
+            <div class="stat-value">${fmtBig(total)}</div>
+            <div class="stat-sub">same as paying cash</div>
           </div>
         </div>`;
     }
