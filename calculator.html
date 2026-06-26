@@ -14,7 +14,7 @@ body {
   min-height: 100vh;
 }
 
-/* ââ Nav tabs ââ */
+/* ── Nav tabs ── */
 nav {
   background: #0d0d1a;
   border-bottom: 1px solid #1e1e3a;
@@ -42,7 +42,7 @@ nav {
   border-bottom-color: #7b9fff;
 }
 
-/* ââ Header ââ */
+/* ── Header ── */
 header {
   background: linear-gradient(135deg, #0d0d1a 0%, #12121f 100%);
   border-bottom: 1px solid #1e1e3a;
@@ -62,7 +62,7 @@ header {
   margin-top: 3px;
 }
 
-/* ââ Main layout ââ */
+/* ── Main layout ── */
 .main {
   display: grid;
   grid-template-columns: 340px 1fr;
@@ -75,7 +75,7 @@ header {
   .main { grid-template-columns: 1fr; }
 }
 
-/* ââ Input panel ââ */
+/* ── Input panel ── */
 .panel {
   background: #0d0d1a;
   border: 1px solid #1e1e3a;
@@ -193,7 +193,7 @@ input[type="number"]:focus { border-color: #3d4fcc; }
   color: #9ca3af;
 }
 
-/* ââ Results panel ââ */
+/* ── Results panel ── */
 .results { display: flex; flex-direction: column; gap: 16px; }
 
 .program-card {
@@ -301,7 +301,7 @@ input[type="number"]:focus { border-color: #3d4fcc; }
   color: #4b5563;
 }
 
-/* ââ Empty state ââ */
+/* ── Empty state ── */
 .empty-state {
   background: #0d0d1a;
   border: 1px solid #1e1e3a;
@@ -312,7 +312,7 @@ input[type="number"]:focus { border-color: #3d4fcc; }
   font-size: 14px;
 }
 
-/* ââ Scrollbar ââ */
+/* ── Scrollbar ── */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: #0a0a0f; }
 ::-webkit-scrollbar-thumb { background: #1e1e3a; border-radius: 3px; }
@@ -461,9 +461,9 @@ function recalc() {
   const total = subtotal + taxAmount;
 
   // Update summary
-  document.getElementById('outSubtotal').textContent = subtotal > 0 ? fmt(subtotal) : 'â';
-  document.getElementById('outTax').textContent = subtotal > 0 ? fmt(taxAmount) : 'â';
-  document.getElementById('outTotal').textContent = total > 0 ? fmt(total) : 'â';
+  document.getElementById('outSubtotal').textContent = subtotal > 0 ? fmt(subtotal) : '—';
+  document.getElementById('outTax').textContent = subtotal > 0 ? fmt(taxAmount) : '—';
+  document.getElementById('outTotal').textContent = total > 0 ? fmt(total) : '—';
 
   // Render programs
   const results = document.getElementById('results');

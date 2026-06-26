@@ -1,0 +1,14 @@
+# Credentials & secrets
+.git-credentials
+.ssh/
+
+# System & cache dirs
+.cache/
+.config/
+.npm/
+.npm-global/
+.wget-hsts
+.gitconfig
+
+# Claude internal state
+.claude/
