@@ -141,7 +141,7 @@ input[type="number"] {
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
 input[type="number"]:focus { border-color: #3d4fcc; }
-input[type="number"].tax-input { padding: 9px 28px 9px 14px; }
+
 
 .divider {
   border: none;
@@ -364,10 +364,7 @@ input[type="number"].tax-input { padding: 9px 28px 9px 14px; }
 
       <div class="field">
         <label>Sales Tax Rate</label>
-        <div class="input-wrap">
-          <input type="number" class="tax-input" id="inTaxRate" min="0" max="20" step="0.01" placeholder="0.00" oninput="recalc()" style="padding-left:14px;">
-          <span class="suffix">%</span>
-        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:14px;color:#c9d1e0;padding:9px 0 9px 2px;">8%</div>
       </div>
 
       <hr class="divider">
@@ -391,7 +388,7 @@ input[type="number"].tax-input { padding: 9px 28px 9px 14px; }
 
   <!-- Right: financing programs -->
   <div class="results" id="results">
-    <div class="empty-state" id="emptyState">Enter a product price to see financing options.</div>
+    <div class="empty-state" id="emptyState" style="display:none;"></div>
   </div>
 
 </div>
@@ -405,8 +402,8 @@ const PROGRAMS = [
     months: 12,
     minPurchase: 500,
     penaltyAPR: 29.99,
-    provider: 'In-Store Financing',
-    warning: true,
+    provider: 'Nest Credit Card',
+    warning: false,
   },
   {
     id: 'deferred36',
@@ -415,8 +412,8 @@ const PROGRAMS = [
     months: 36,
     minPurchase: 3000,
     penaltyAPR: 29.99,
-    provider: 'In-Store Financing',
-    warning: true,
+    provider: 'Nest Credit Card',
+    warning: false,
   },
   {
     id: 'koalifi',
@@ -457,7 +454,7 @@ function recalc() {
   const product    = val('inProduct');
   const delivery   = val('inDelivery');
   const protection = val('inProtection');
-  const taxRate    = val('inTaxRate');
+  const taxRate    = 8;
 
   const subtotal = product + delivery + protection;
   const taxAmount = subtotal * (taxRate / 100);
@@ -465,7 +462,7 @@ function recalc() {
 
   // Update summary
   document.getElementById('outSubtotal').textContent = subtotal > 0 ? fmt(subtotal) : '—';
-  document.getElementById('outTax').textContent = (subtotal > 0 && taxRate > 0) ? fmt(taxAmount) : '—';
+  document.getElementById('outTax').textContent = subtotal > 0 ? fmt(taxAmount) : '—';
   document.getElementById('outTotal').textContent = total > 0 ? fmt(total) : '—';
 
   // Render programs
@@ -473,12 +470,9 @@ function recalc() {
   const empty = document.getElementById('emptyState');
 
   if (total <= 0) {
-    empty.style.display = '';
-    // remove all cards
     [...results.querySelectorAll('.program-card')].forEach(el => el.remove());
     return;
   }
-  empty.style.display = 'none';
 
   PROGRAMS.forEach(prog => {
     let card = document.getElementById('card-' + prog.id);
@@ -526,9 +520,6 @@ function renderCard(card, prog, total) {
             <div class="stat-value amber">${prog.penaltyAPR}%</div>
             <div class="stat-sub">if not paid off in time</div>
           </div>
-        </div>
-        <div class="warning-box">
-          <strong>⚠ Retroactive interest warning:</strong> If the balance is not paid in full by the end of the ${prog.months}-month promotional period, <strong>${prog.penaltyAPR}% APR</strong> will be charged retroactively on the original purchase amount from the date of purchase.
         </div>`;
     } else if (prog.type === 'lto') {
       const totalCost = total * prog.factor;
@@ -575,7 +566,7 @@ function renderCard(card, prog, total) {
 }
 
 function resetAll() {
-  ['inProduct','inDelivery','inProtection','inTaxRate'].forEach(id => {
+  ['inProduct','inDelivery','inProtection'].forEach(id => {
     document.getElementById(id).value = '';
   });
   recalc();
