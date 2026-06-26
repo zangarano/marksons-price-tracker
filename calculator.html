@@ -371,15 +371,15 @@ input[type="number"]:focus { border-color: #3d4fcc; }
 
       <div class="total-row">
         <span class="total-label">Subtotal</span>
-        <span class="total-value" id="outSubtotal">â</span>
+        <span class="total-value" id="outSubtotal">-</span>
       </div>
       <div class="total-row">
         <span class="total-label">Tax</span>
-        <span class="total-value" id="outTax">â</span>
+        <span class="total-value" id="outTax">-</span>
       </div>
       <div class="total-row" style="margin-top:10px;">
         <span class="total-label" style="color:#9ca3af;font-size:13px;">Total Financed</span>
-        <span class="total-value grand" id="outTotal">â</span>
+        <span class="total-value grand" id="outTotal">-</span>
       </div>
 
       <button class="reset-btn" onclick="resetAll()">Clear All Fields</button>
@@ -397,7 +397,7 @@ input[type="number"]:focus { border-color: #3d4fcc; }
 const PROGRAMS = [
   {
     id: 'deferred12',
-    name: '0% Deferred Interest â 12 Months',
+    name: '0% Deferred Interest - 12 Months',
     type: 'deferred',
     months: 12,
     minPurchase: 500,
@@ -407,7 +407,7 @@ const PROGRAMS = [
   },
   {
     id: 'deferred36',
-    name: '0% Deferred Interest â 36 Months',
+    name: '0% Deferred Interest - 36 Months',
     type: 'deferred',
     months: 36,
     minPurchase: 3000,
@@ -436,12 +436,12 @@ const PROGRAMS = [
 ];
 
 function fmt(n) {
-  if (n === null || isNaN(n)) return 'â';
+  if (n === null || isNaN(n)) return '-';
   return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 function fmtBig(n) {
-  if (n === null || isNaN(n)) return 'â';
+  if (n === null || isNaN(n)) return '-';
   return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
@@ -461,9 +461,9 @@ function recalc() {
   const total = subtotal + taxAmount;
 
   // Update summary
-  document.getElementById('outSubtotal').textContent = subtotal > 0 ? fmt(subtotal) : 'â';
-  document.getElementById('outTax').textContent = subtotal > 0 ? fmt(taxAmount) : 'â';
-  document.getElementById('outTotal').textContent = total > 0 ? fmt(total) : 'â';
+  document.getElementById('outSubtotal').textContent = subtotal > 0 ? fmt(subtotal) : '-';
+  document.getElementById('outTax').textContent = subtotal > 0 ? fmt(taxAmount) : '-';
+  document.getElementById('outTotal').textContent = total > 0 ? fmt(total) : '-';
 
   // Render programs
   const results = document.getElementById('results');
@@ -506,14 +506,14 @@ function renderCard(card, prog, total) {
       statsHtml = `
         <div class="program-grid">
           <div class="program-stat">
-            <div class="stat-label">Total Financed</div>
-            <div class="stat-value green">${fmtBig(total)}</div>
-            <div class="stat-sub">0% interest if paid in full</div>
-          </div>
-          <div class="program-stat">
             <div class="stat-label">Monthly Payment</div>
             <div class="stat-value">${fmtBig(monthly)}</div>
             <div class="stat-sub">over ${prog.months} months</div>
+          </div>
+          <div class="program-stat">
+            <div class="stat-label">Total Financed</div>
+            <div class="stat-value green">${fmtBig(total)}</div>
+            <div class="stat-sub">0% interest if paid in full</div>
           </div>
           <div class="program-stat">
             <div class="stat-label">Penalty APR</div>
@@ -527,6 +527,11 @@ function renderCard(card, prog, total) {
       statsHtml = `
         <div class="program-grid">
           <div class="program-stat">
+            <div class="stat-label">Biweekly Payment</div>
+            <div class="stat-value">${fmtBig(biweekly)}</div>
+            <div class="stat-sub">26 payments / year</div>
+          </div>
+          <div class="program-stat">
             <div class="stat-label">90-Day Price</div>
             <div class="stat-value green">${fmtBig(total)}</div>
             <div class="stat-sub">same as paying cash</div>
@@ -534,12 +539,7 @@ function renderCard(card, prog, total) {
           <div class="program-stat">
             <div class="stat-label">Total Lease Cost</div>
             <div class="stat-value amber">${fmtBig(totalCost)}</div>
-            <div class="stat-sub">${prog.factor}Ã factor Â· ${prog.months} months</div>
-          </div>
-          <div class="program-stat">
-            <div class="stat-label">Biweekly Payment</div>
-            <div class="stat-value">${fmtBig(biweekly)}</div>
-            <div class="stat-sub">26 payments / year</div>
+            <div class="stat-sub">${prog.factor}x factor - ${prog.months} months</div>
           </div>
         </div>`;
     }
@@ -547,8 +547,8 @@ function renderCard(card, prog, total) {
 
   const tagHtml = eligible
     ? (prog.warning
-        ? `<span class="program-tag tag-warning">â  Conditions Apply</span>`
-        : `<span class="program-tag tag-eligible">â Eligible</span>`)
+        ? `<span class="program-tag tag-warning">Conditions Apply</span>`
+        : `<span class="program-tag tag-eligible">Eligible</span>`)
     : `<span class="program-tag tag-ineligible">Not Eligible</span>`;
 
   card.innerHTML = `
