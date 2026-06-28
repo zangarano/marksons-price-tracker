@@ -13,7 +13,7 @@ This runs automatically twice daily (7am and 3pm EDT) to refresh competitor pric
 
 ## GitHub
 - Repo: zangarano/marksons-price-tracker
-- Token: ghp_REDACTED
+- Token: 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
 - Push via Chrome browser JavaScript (GitHub Contents API)
 - File: index.html
 
@@ -116,7 +116,7 @@ Generate `/home/claude/price_alerts.html` — a private, standalone HTML file wi
 - Only show items with 20%+ gap — if none meet the threshold, note "No significant price gaps this run"
 
 ### Delivery:
-1. Use `SendUserFile` to send `/home/claude/price_alerts.html` in the conversation (private — cever pushed to GitHub)
+1. Use `SendUserFile` to send `/home/claude/price_alerts.html` in the conversation (private — never pushed to GitHub)
 2. Use `PushNotification` to send a summary to the user's phone:
    - If alerts exist: "📊 [N] price gaps: [top 3 items with gap %]. Full report in Claude app."
    - If no alerts: no push notification needed — skip it
@@ -127,7 +127,7 @@ Use Chrome browser JavaScript to push index.html via GitHub Contents API:
 2. Base64 encode the HTML content (use chunked TextEncoder approach)
 3. PUT updated file with SHA
 
-Token: ghp_REDACTED
+Token: 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
 
 ## Timestamps
 Record timestamps when each scrape finishes. Store in `/home/claude/scrape_timestamps.json`.
